@@ -1,7 +1,7 @@
 import pyperclip
 import readline
 
-
+# Constants
 vowels = ['a', 'e', 'i', 'o', 'u', 'v']
 first = ['ā', 'ē', 'ī', 'ō', 'ū','ǖ']
 second = ['á', 'é', 'í', 'ó', 'ú', 'ǘ']
@@ -15,13 +15,13 @@ to_forth = dict(zip(vowels, fourth))
 
 tone_dict = dict(zip(range(1, 5), (to_first, to_second, to_third, to_forth)))
 
-letter_priority = ['a', 'o', 'e', 'ui' , 'i', 'u', 'v'] 
+vowel_priority = ['a', 'o', 'e', 'ui', 'i', 'u', 'v'] 
 
 def replace_vowel(buf, tone):
     reversed = buf[::-1]
     v = get_vowels(reversed)
     
-    for letter in letter_priority:
+    for letter in vowel_priority:
         if letter in v:
             if letter == 'ui':
                 letter = 'u'
@@ -40,25 +40,33 @@ def get_vowels(reversed):
             break
     return v
 
-while True:
-    try:
-        text = input('~-> ')
-     
-        buffer = ''
-        result = ''
-        for letter in text:
-            if letter.isdigit():
-                tone = int(letter)
-                if 1 <= tone <= 4:
-                    result += replace_vowel(buffer, tone)
-                    buffer = ''
-            else:
-                buffer += letter 
-        result += buffer
-        print(result)
-        pyperclip.copy(result)
-    except KeyboardInterrupt:
-        print()
-    except EOFError:
-        print()
-        exit()
+def process_text(text):
+    buffer = ''
+    result = ''
+    for letter in text:
+        if letter.isdigit():
+            tone = int(letter)
+            if 1 <= tone <= 4:
+                result += replace_vowel(buffer, tone)
+                buffer = ''
+            elif tone not in (0, 5):
+                buffer += letter
+        else:
+            buffer += letter 
+    return result + buffer
+
+def main():
+    while True:
+        try:
+            text = input('~-> ')
+            result = process_text(text) 
+            print(result)
+            pyperclip.copy(result)
+        except KeyboardInterrupt:
+            print()
+        except EOFError:
+            print()
+            exit()
+
+if __name__ == '__main__':
+    main()
