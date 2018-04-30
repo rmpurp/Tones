@@ -77,19 +77,19 @@ def process_file(file_name):
             print(process_text(line.strip()))
 
 
-def main():
-    file_name = parse_args()
-    if file_name:
-        process_file(file_name)
-    else:
-        repl()
-
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("filename", nargs='?', type=str,
             help='file name to be parsed', default="")
     args = parser.parse_args()
     return vars(args)["filename"]
+
+def main():
+    file_name = parse_args()
+    if file_name:
+        process_file(file_name)
+    else:
+        repl()
 
 if __name__ == '__main__':
     main()
