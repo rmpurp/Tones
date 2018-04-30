@@ -2,6 +2,7 @@
 
 import pyperclip
 import readline
+import argparse
 
 # Constants
 vowels = ['a', 'e', 'i', 'o', 'u', 'v']
@@ -57,7 +58,7 @@ def process_text(text):
             buffer += letter 
     return result + buffer
 
-def main():
+def repl():
     while True:
         try:
             text = input('~-> ')
@@ -69,6 +70,26 @@ def main():
         except EOFError:
             print()
             exit()
+
+def process_file(file_name):
+    with open(file_name) as f:
+        for line in f:
+            print(process_text(line.strip()))
+
+
+def main():
+    file_name = parse_args()
+    if file_name:
+        process_file(file_name)
+    else:
+        repl()
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("filename", nargs='?', type=str,
+            help='file name to be parsed', default="")
+    args = parser.parse_args()
+    return vars(args)["filename"]
 
 if __name__ == '__main__':
     main()
