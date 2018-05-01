@@ -6,9 +6,10 @@ Operation requires Python 3 installed. Run using ```python3 tones.py [filename]`
 
 ## Handling of Digits
 To be recognized as a tone number, the number must directly follow the syllable with no symbol separating the last letter and the number. Digits that are unambiguously not a tone number are added verbatim to the output. These situations are:
- * The digit is directly preceeded by another digit (including tone numbers)
+ * The digit is 6 - 9.
+ * The digit is directly preceeded by another digit (including tone numbers and escaped digits)
  * The digit is directly preceeded by a symbol digit
- * The number is escaped (using ```\```)
+ * The digit is escaped (using ```\```)
      * To type ```\```, you must escape it by writing ```\\```.
 
 # Dependencies
