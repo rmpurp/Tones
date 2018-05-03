@@ -38,6 +38,7 @@ def get_vowels(reversed):
     return v
 
 def convert(text):
+    text = text.replace('ü', 'v')
     buffer = ''
     result = ''
     replacing_mode = False
