@@ -1,3 +1,6 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 # Constants
 vowels = ['a', 'e', 'i', 'o', 'u', 'v']
 first = ['ā', 'ē', 'ī', 'ō', 'ū','ǖ']
